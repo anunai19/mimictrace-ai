@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta content="#0e0d15" name="theme-color"/>
+    <title>MimicTrace AI | Website Impersonation & Phishing Defense Platform</title>
+
+    <!-- Google Fonts: Space Grotesk, Inter, Material Symbols Outlined -->
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+
+    <!-- Tailwind CSS with Stitch Material Design 3 Configuration -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-surface": "#e4e1ec",
+                        "on-secondary": "#00363a",
+                        "secondary-fixed-dim": "#00dbe9",
+                        "tertiary-fixed": "#eaddff",
+                        "on-tertiary-fixed-variant": "#5700c9",
+                        "primary-container": "#8e44ff",
+                        "outline": "#968da1",
+                        "inverse-on-surface": "#303038",
+                        "surface-variant": "#34343c",
+                        "inverse-surface": "#e4e1ec",
+                        "on-background": "#e4e1ec",
+                        "primary-fixed": "#ebdcff",
+                        "on-primary": "#41008b",
+                        "on-error": "#690005",
+                        "inverse-primary": "#7825e9",
+                        "surface-tint": "#d4bbff",
+                        "surface-dim": "#13131a",
+                        "primary": "#d4bbff",
+                        "on-primary-fixed": "#270058",
+                        "surface-bright": "#393841",
+                        "tertiary": "#d1bcff",
+                        "surface-container-low": "#1b1b23",
+                        "tertiary-container": "#8649ff",
+                        "on-tertiary-fixed": "#24005b",
+                        "on-secondary-fixed": "#002022",
+                        "on-error-container": "#ffdad6",
+                        "surface-container": "#1f1f27",
+                        "secondary": "#d3fbff",
+                        "primary-fixed-dim": "#d4bbff",
+                        "tertiary-fixed-dim": "#d1bcff",
+                        "on-surface-variant": "#cdc2d8",
+                        "on-secondary-fixed-variant": "#004f54",
+                        "on-primary-fixed-variant": "#5d00c2",
+                        "background": "#0e0d15",
+                        "error": "#ffb4ab",
+                        "error-container": "#93000a",
+                        "on-tertiary-container": "#fef8ff",
+                        "secondary-container": "#00eefc",
+                        "surface": "#13131a",
+                        "on-secondary-container": "#00686f",
+                        "outline-variant": "#4b4455",
+                        "on-tertiary": "#3c0090",
+                        "on-primary-container": "#fff8ff",
+                        "secondary-fixed": "#7df4ff",
+                        "surface-container-highest": "#34343c",
+                        "surface-container-high": "#2a2931",
+                        "surface-container-lowest": "#0e0d15"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    fontFamily: {
+                        "label-mono-lg": ["Space Grotesk", "monospace"],
+                        "headline-lg-mobile": ["Space Grotesk", "sans-serif"],
+                        "body-lg": ["Inter", "sans-serif"],
+                        "data-metric": ["Space Grotesk", "sans-serif"],
+                        "body-md": ["Inter", "sans-serif"],
+                        "display-hero-mobile": ["Space Grotesk", "sans-serif"],
+                        "headline-md": ["Space Grotesk", "sans-serif"],
+                        "body-sm": ["Inter", "sans-serif"],
+                        "label-mono-sm": ["Space Grotesk", "monospace"],
+                        "headline-sm": ["Space Grotesk", "sans-serif"],
+                        "headline-lg": ["Space Grotesk", "sans-serif"],
+                        "display-hero": ["Space Grotesk", "sans-serif"]
+                    }
+                }
+            }
+        };
+    </script>
+
+    <!-- Three.js (r125) for 3D Domain Intelligence Telemetry Visualizer -->
+    <script src="https://ajax.googleapis.com/ajax/libs/threejs/r125/three.min.js"></script>
+
+    <!-- Custom Stylings for Stitch Glassmorphism & Dashboard Invariants -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body class="bg-background text-on-surface font-body-md text-body-md antialiased min-h-screen selection:bg-primary-container selection:text-on-primary-container">
+
+    <!-- Global Background Particle Network Canvas -->
+    <canvas id="network"></canvas>
+
+    <!-- Navigation Header -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-surface/85 backdrop-blur-2xl border-b border-outline-variant/30 shadow-[0_4px_24px_rgba(0,0,0,0.6)]">
+        <div class="h-20 max-w-[1600px] mx-auto px-6 lg:px-12 flex items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+                <a class="flex items-center gap-3 text-white text-xl font-bold tracking-tight no-underline" href="#home" id="nav-logo">
+                    <div class="w-9 h-9 rounded-lg bg-surface-container flex items-center justify-center border border-primary-container/40 shadow-[0_0_16px_rgba(142,68,255,0.45)]">
+                        <span class="material-symbols-outlined text-primary text-[20px]">security</span>
+                    </div>
+                    <span class="font-headline-sm text-headline-sm">MimicTrace<span class="text-secondary-container font-mono">AI</span></span>
+                </a>
+                <span class="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-surface-container-high text-outline font-label-mono-sm text-[11px] border border-outline-variant/40">
+                    <span class="w-1.5 h-1.5 rounded-full bg-secondary-container animate-pulse"></span>
+                    ENGINE v4.2 // ONLINE
+                </span>
+            </div>
+
+            <!-- Nav Tabs -->
+            <nav class="hidden md:flex items-center gap-1 bg-surface-container-lowest/80 p-1 rounded-xl border border-outline-variant/30 backdrop-blur-md">
+                <a class="nav-tab active px-4 py-1.5 rounded-lg font-label-mono-sm text-label-mono-sm text-on-surface hover:text-primary transition-colors flex items-center gap-1.5" href="#home" data-target="view-landing">
+                    <span class="material-symbols-outlined text-[16px]">home</span>
+                    <span>OVERVIEW</span>
+                </a>
+                <a class="nav-tab px-4 py-1.5 rounded-lg font-label-mono-sm text-label-mono-sm text-outline hover:text-secondary-container transition-colors flex items-center gap-1.5" href="#scanner" data-target="view-scanner">
+                    <span class="material-symbols-outlined text-[16px]">radar</span>
+                    <span>LIVE SCANNER</span>
+                </a>
+                <a class="nav-tab px-4 py-1.5 rounded-lg font-label-mono-sm text-label-mono-sm text-outline hover:text-primary transition-colors flex items-center gap-1.5" href="#dashboard" data-target="view-dashboard">
+                    <span class="material-symbols-outlined text-[16px]">dashboard</span>
+                    <span>SOC DASHBOARD</span>
+                </a>
+                <a class="nav-tab px-4 py-1.5 rounded-lg font-label-mono-sm text-label-mono-sm text-outline hover:text-on-surface transition-colors flex items-center gap-1.5" href="#technology" data-target="view-tech">
+                    <span class="material-symbols-outlined text-[16px]">memory</span>
+                    <span>TECHNOLOGY</span>
+                </a>
+            </nav>
+
+            <!-- Action Button -->
+            <div class="flex items-center gap-3">
+                <a class="px-5 py-2.5 rounded-xl bg-primary-container text-on-primary-container hover:bg-primary hover:text-on-primary transition-all duration-300 font-label-mono-sm text-label-mono-sm font-bold flex items-center gap-2 shadow-[0_0_20px_rgba(142,68,255,0.45)]" href="#scanner" id="nav-scan-cta">
+                    <span class="material-symbols-outlined text-[18px]">travel_explore</span>
+                    <span>LAUNCH SCANNER ↗</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="pt-20">
+
+        <!-- ================================================================= -->
+        <!-- SECTION 1: LANDING PAGE & THREE.JS 3D TELEMETRY HERO             -->
+        <!-- ================================================================= -->
+        <section class="stitch-view relative w-full px-6 lg:px-12 py-12 md:py-20 max-w-[1600px] mx-auto" id="home">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center min-h-[640px]">
+
+                <!-- Left Column: Value Proposition -->
+                <div class="lg:col-span-6 flex flex-col justify-center gap-6 z-10">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface-container-low border border-primary-container/30 w-fit">
+                        <span class="w-2 h-2 rounded-full bg-secondary-container shadow-[0_0_8px_#00eefc]"></span>
+                        <span class="font-label-mono-sm text-label-mono-sm text-primary tracking-wider uppercase">DEFENSIVE TELEMETRY // MULTI-SIGNAL FUSION</span>
+                    </div>
+
+                    <h1 class="font-display-hero text-4xl sm:text-5xl lg:text-[62px] text-on-surface tracking-tight leading-[1.08] font-bold">
+                        Don't Trust the Look.<br/>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary via-primary-container to-secondary-container">
+                            Trace the Truth.
+                        </span>
+                    </h1>
+
+                    <p class="font-body-lg text-body-lg text-on-surface-variant max-w-xl leading-relaxed">
+                        Detect website impersonation, uncover zero-day phishing threats, and investigate suspicious digital identities with explainable AI-powered evidence fusion.
+                    </p>
+
+                    <!-- Action Matrix -->
+                    <div class="flex flex-wrap items-center gap-4 pt-2">
+                        <a class="px-7 py-3.5 rounded-xl bg-primary-container text-on-primary-container font-label-mono-lg text-label-mono-lg hover:bg-primary hover:text-on-primary transition-all duration-300 shadow-[0_0_28px_-4px_rgba(142,68,255,0.7)] flex items-center gap-2 group" href="#scanner">
+                            <span class="material-symbols-outlined text-[20px] transition-transform duration-300 group-hover:rotate-45">radar</span>
+                            <span>START INVESTIGATION</span>
+                        </a>
+                        <a class="px-7 py-3.5 rounded-xl bg-surface-container-high/90 text-on-surface hover:text-secondary-container hover:bg-surface-container-highest transition-all duration-300 font-label-mono-lg text-label-mono-lg border border-outline-variant/40 backdrop-blur-md flex items-center gap-2" href="#technology">
+                            <span>EXPLORE TECHNOLOGY</span>
+                            <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+                        </a>
+                    </div>
+
+                    <!-- Trust Bar -->
+                    <div class="pt-4 flex items-start gap-3 max-w-lg border-t border-outline-variant/20">
+                        <span class="material-symbols-outlined text-secondary-container text-[20px] mt-0.5">verified_user</span>
+                        <p class="font-body-sm text-body-sm text-outline leading-snug">
+                            Zero fabricated data. Heuristic indicator weights rather than statistical probabilities. Transparent topological relationship graphs.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Right Column: 3D Domain Intelligence Telemetry Visualizer -->
+                <div class="lg:col-span-6 relative">
+                    <div class="relative w-full aspect-square max-h-[580px] rounded-2xl bg-surface-container-low/70 border border-outline-variant/40 backdrop-blur-2xl p-5 flex flex-col justify-between overflow-hidden shadow-[0_16px_56px_rgba(0,0,0,0.75)]">
+                        <!-- HUD Header -->
+                        <div class="flex items-center justify-between pb-3 border-b border-outline-variant/20 z-20">
+                            <div class="flex items-center gap-2">
+                                <span class="w-2.5 h-2.5 rounded-full bg-secondary-container shadow-[0_0_8px_#00eefc]"></span>
+                                <span class="font-label-mono-sm text-label-mono-sm text-on-surface tracking-wider uppercase">GRAPH_TOPOLOGY // CLUSTER 908-ALPHA</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <span class="font-label-mono-sm text-label-mono-sm text-outline hidden sm:inline">NEURAL-HEURISTIC v4.2</span>
+                                <span class="px-2 py-0.5 rounded bg-surface-container-highest font-label-mono-sm text-label-mono-sm text-secondary-container border border-outline-variant/30">INTERACTIVE 3D</span>
+                            </div>
+                        </div>
+
+                        <!-- 3D Centerpiece Container Embedding Three.js -->
+                        <div class="relative flex-1 w-full flex items-center justify-center overflow-hidden" id="three-hero-container">
+                            <div class="absolute inset-0 w-full h-full opacity-95" id="threejs-container-ANIMATION_9"></div>
+                        </div>
+
+                        <!-- HUD Footer Telemetry -->
+                        <div class="pt-3 border-t border-outline-variant/20 flex items-center justify-between font-label-mono-sm text-[11px] text-outline z-20">
+                            <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-primary-container"></span> Protected Identity</span>
+                            <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-secondary-container"></span> Legitimate DNS</span>
+                            <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-error"></span> Impersonation Vector</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ================================================================= -->
+        <!-- SECTION 2: LIVE WEBSITE SCANNER WORKSPACE                         -->
+        <!-- ================================================================= -->
+        <section class="stitch-view w-full px-6 lg:px-12 py-12 max-w-[1600px] mx-auto scanner-section" id="scanner">
+
+            <!-- Section Header -->
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8 pb-6 border-b border-outline-variant/30">
+                <div>
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface-container-low border border-primary-container/30 mb-2">
+                        <span class="w-2 h-2 rounded-full bg-secondary-container"></span>
+                        <span class="font-label-mono-sm text-label-mono-sm text-primary tracking-wider uppercase">LIVE INVESTIGATION CONSOLE</span>
+                    </div>
+                    <h2 class="font-headline-lg text-3xl md:text-4xl text-on-surface font-bold">Inspect Website Target</h2>
+                    <p class="font-body-md text-on-surface-variant max-w-2xl mt-1">
+                        Submit any fully-qualified HTTP or HTTPS URL to launch feature extraction, machine learning triage, and multi-source evidence fusion.
+                    </p>
+                </div>
+                <div class="flex items-center gap-3">
+                    <span class="font-label-mono-sm text-label-mono-sm text-outline">STATUS:</span>
+                    <span class="px-3 py-1 rounded-lg bg-surface-container font-label-mono-sm text-secondary-container border border-outline-variant/30 font-bold">
+                        READY FOR TARGET
+                    </span>
+                </div>
+            </div>
+
+            <!-- Two-Column Interactive Workspace -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+
+                <!-- LEFT COLUMN: URL Injection & Sandboxed Dispatcher -->
+                <div class="lg:col-span-5 flex flex-col gap-6">
+                    <div class="bg-surface-container-low/90 border border-outline-variant/40 backdrop-blur-xl p-6 md:p-8 rounded-2xl shadow-xl flex flex-col gap-6 relative overflow-hidden">
+
+                        <!-- Top Accent Line -->
+                        <div class="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-primary-container via-secondary-container to-transparent opacity-80"></div>
+
+                        <!-- Target URL Form (Preserving Required Contract: #scanForm & #websiteUrl) -->
+                        <form id="scanForm" class="flex flex-col gap-4">
+                            <div class="flex items-center justify-between font-label-mono-sm text-label-mono-sm">
+                                <span class="text-on-surface-variant">TARGET URI / FQDN</span>
+                                <span class="text-secondary-container font-mono" id="entropy-score">Entropy: Lexical Analysis</span>
+                            </div>
+
+                            <div class="flex flex-col sm:flex-row items-stretch gap-2 bg-surface-container-lowest p-2 rounded-xl border border-outline-variant/40 focus-within:border-primary-container transition-all shadow-inner">
+                                <div class="flex items-center bg-surface-container px-3 py-2 rounded-lg text-primary font-label-mono-sm text-label-mono-sm">
+                                    <span class="material-symbols-outlined text-[18px] mr-1 text-secondary-container">lock</span>
+                                    <select class="bg-transparent text-secondary-container focus:outline-none cursor-pointer" id="protocol-select">
+                                        <option value="https://">https://</option>
+                                        <option value="http://">http://</option>
+                                    </select>
+                                </div>
+                                <div class="flex-1 flex items-center px-2">
+                                    <input
+                                        type="url"
+                                        id="websiteUrl"
+                                        placeholder="https://security-verify.login-bankportal.com"
+                                        required
+                                        autocomplete="off"
+                                        spellcheck="false"
+                                        class="w-full bg-transparent text-on-surface placeholder:text-outline font-label-mono-sm text-label-mono-sm focus:outline-none py-2"
+                                    />
+                                </div>
+                                <button type="button" id="clear-btn" class="px-2 text-outline hover:text-on-surface transition-colors flex items-center justify-center">
+                                    <span class="material-symbols-outlined text-[18px]">backspace</span>
+                                </button>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <button
+                                type="submit"
+                                id="submitScanButton"
+                                class="w-full py-3.5 px-6 rounded-xl bg-primary-container text-on-primary-container hover:bg-primary hover:text-on-primary transition-all font-label-mono-lg text-label-mono-lg font-bold flex items-center justify-center gap-2 shadow-[0_0_24px_rgba(142,68,255,0.45)]"
+                            >
+                                <span class="material-symbols-outlined text-[20px]">radar</span>
+                                <span>ANALYSE WEBSITE TARGET →</span>
+                            </button>
+                        </form>
+
+                        <!-- Presets / Quick Test Chips -->
+                        <div class="flex flex-col gap-2 pt-2 border-t border-outline-variant/20">
+                            <span class="font-label-mono-sm text-label-mono-sm text-outline tracking-wider uppercase">Presets // Quick Test Links</span>
+                            <div class="flex flex-wrap gap-2">
+                                <button type="button" class="preset-pill px-3 py-1 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface border border-outline-variant/30 text-xs font-mono transition-colors" data-url="https://paypal.com">
+                                    paypal.com
+                                </button>
+                                <button type="button" class="preset-pill px-3 py-1 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface border border-outline-variant/30 text-xs font-mono transition-colors" data-url="https://accounts.google.com">
+                                    accounts.google.com
+                                </button>
+                                <button type="button" class="preset-pill px-3 py-1 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface border border-outline-variant/30 text-xs font-mono transition-colors" data-url="https://secure-login-update-verify.com">
+                                    suspicious-sample.com
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Stage 2 Deeper Analysis Controls (Preserving Contract: #deeperAnalysisButton, #logoCropInput, #deeperAnalysisStatus) -->
+                        <div class="deeper-analysis-controls flex flex-col gap-3 p-4 rounded-xl bg-surface-container/60 border border-outline-variant/40">
+                            <div class="flex items-center justify-between">
+                                <span class="font-label-mono-sm text-label-mono-sm text-primary font-bold">STAGE 2 // MULTI-SIGNAL FUSION</span>
+                                <span class="text-xs text-outline font-mono">HTML · DNS · TLS · BRAND</span>
+                            </div>
+
+                            <div class="flex items-center gap-3">
+                                <label for="logoCropInput" class="flex-1 cursor-pointer flex items-center gap-2 px-3 py-2 rounded-lg bg-surface-container-lowest border border-dashed border-outline-variant/60 hover:border-secondary-container transition-colors text-xs text-outline">
+                                    <span class="material-symbols-outlined text-[16px] text-secondary-container">image</span>
+                                    <span id="logoFileName" class="truncate">Optional logo crop (PNG/JPEG)</span>
+                                </label>
+                                <input
+                                    type="file"
+                                    id="logoCropInput"
+                                    accept="image/png,image/jpeg,.png,.jpg,.jpeg"
+                                    class="hidden"
+                                />
+
+                                <button
+                                    type="button"
+                                    id="deeperAnalysisButton"
+                                    disabled
+                                    class="px-4 py-2 rounded-lg bg-primary-container text-on-primary-container disabled:opacity-40 disabled:cursor-not-allowed font-label-mono-sm text-label-mono-sm font-bold shadow-md hover:bg-primary transition-all whitespace-nowrap"
+                                >
+                                    Deeper Analysis ⚡
+                                </button>
+                            </div>
+
+                            <p id="deeperAnalysisStatus" class="font-label-mono-sm text-xs text-outline" aria-live="polite">
+                                Run URL analysis first to enable deeper analysis.
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- RIGHT COLUMN: Primary URL Triage Output (Preserving Contract: #scanMessage) -->
+                <div class="lg:col-span-7 flex flex-col gap-6">
+                    <div id="scanMessage" class="scan-message" aria-live="polite">
+                        <!-- Idle Welcome State -->
+                        <div class="bg-surface-container-low/80 border border-outline-variant/30 p-8 rounded-2xl flex flex-col items-center justify-center text-center gap-4 min-h-[380px]">
+                            <div class="w-16 h-16 rounded-full bg-surface-container flex items-center justify-center text-secondary-container border border-outline-variant/40 shadow-[0_0_24px_rgba(0,238,252,0.15)]">
+                                <span class="material-symbols-outlined text-[32px]">shield_search</span>
+                            </div>
+                            <div class="max-w-md">
+                                <h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">Investigation Standby</h3>
+                                <p class="font-body-md text-on-surface-variant mt-1">
+                                    Enter a target website URL to run lexical feature extraction, heuristic triage, and machine learning scoring.
+                                </p>
+                            </div>
+                            <span class="font-label-mono-sm text-xs text-outline">
+                                Heuristic signal estimates · Not guaranteed security verdicts.
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Deeper Analysis & Risk Dossier Results (Preserving Contract: #deeperAnalysisResults) -->
+            <div id="deeperAnalysisResults" class="deeper-results mt-12" aria-live="polite"></div>
+
+        </section>
+
+        <!-- ================================================================= -->
+        <!-- SECTION 3: SECURITY OPERATIONS (SOC) DASHBOARD                   -->
+        <!-- ================================================================= -->
+        <section class="stitch-view w-full px-6 lg:px-12 py-12 max-w-[1600px] mx-auto" id="dashboard">
+
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8 pb-6 border-b border-outline-variant/30">
+                <div>
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface-container-low border border-primary-container/30 mb-2">
+                        <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+                        <span class="font-label-mono-sm text-label-mono-sm text-primary tracking-wider uppercase">SOC FLEET SURVEILLANCE</span>
+                    </div>
+                    <h2 class="font-headline-lg text-3xl md:text-4xl text-on-surface font-bold">Security Operations Overview</h2>
+                    <p class="font-body-md text-on-surface-variant max-w-2xl mt-1">
+                        Enterprise telemetry overview, global phishing cluster monitoring, and domain intelligence surveillance.
+                    </p>
+                </div>
+                <div class="flex items-center gap-3">
+                    <span class="px-3 py-1 rounded-lg bg-surface-container font-label-mono-sm text-xs text-outline border border-outline-variant/30">
+                        MONITORING REPOSITORIES (DEMO)
+                    </span>
+                </div>
+            </div>
+
+            <!-- Top 4 Metric Cards -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 mb-8">
+                <div class="p-6 rounded-2xl bg-surface-container-low border border-outline-variant/30 shadow-lg flex flex-col justify-between">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="font-label-mono-sm text-xs text-outline tracking-wider uppercase">DOMAINS ANALYZED</span>
+                        <span class="px-2 py-0.5 rounded-full bg-secondary-container/15 text-secondary-container font-mono text-[11px] font-bold">+18.4%</span>
+                    </div>
+                    <div class="flex items-baseline gap-2 mb-2">
+                        <span class="font-data-metric text-4xl text-on-surface font-bold">24,892</span>
+                        <span class="font-label-mono-sm text-xs text-outline">TARGETS</span>
+                    </div>
+                    <p class="font-body-sm text-xs text-on-surface-variant">Global website security investigations</p>
+                    <div class="mt-4 w-full h-1 bg-surface-container-highest rounded-full overflow-hidden">
+                        <div class="bg-secondary-container w-3/4 h-full"></div>
+                    </div>
+                </div>
+
+                <div class="p-6 rounded-2xl bg-surface-container-low border border-outline-variant/30 shadow-lg flex flex-col justify-between">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="font-label-mono-sm text-xs text-outline tracking-wider uppercase">PHISHING CLUSTERS</span>
+                        <span class="px-2 py-0.5 rounded-full bg-error/15 text-error font-mono text-[11px] font-bold">ACTIVE SURGE</span>
+                    </div>
+                    <div class="flex items-baseline gap-2 mb-2">
+                        <span class="font-data-metric text-4xl text-error font-bold">1,842</span>
+                        <span class="font-label-mono-sm text-xs text-outline">DETECTED</span>
+                    </div>
+                    <p class="font-body-sm text-xs text-on-surface-variant">Corroborated malicious credential harvesters</p>
+                    <div class="mt-4 w-full h-1 bg-surface-container-highest rounded-full overflow-hidden">
+                        <div class="bg-error w-2/3 h-full"></div>
+                    </div>
+                </div>
+
+                <div class="p-6 rounded-2xl bg-surface-container-low border border-outline-variant/30 shadow-lg flex flex-col justify-between">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="font-label-mono-sm text-xs text-outline tracking-wider uppercase">BRAND LOOKALIKES</span>
+                        <span class="px-2 py-0.5 rounded-full bg-primary-container/20 text-primary font-mono text-[11px] font-bold">CONFUSABLE</span>
+                    </div>
+                    <div class="flex items-baseline gap-2 mb-2">
+                        <span class="font-data-metric text-4xl text-primary font-bold">419</span>
+                        <span class="font-label-mono-sm text-xs text-outline">IDENTIFIED</span>
+                    </div>
+                    <p class="font-body-sm text-xs text-on-surface-variant">Unicode confusables & typosquatting twins</p>
+                    <div class="mt-4 w-full h-1 bg-surface-container-highest rounded-full overflow-hidden">
+                        <div class="bg-primary-container w-1/2 h-full"></div>
+                    </div>
+                </div>
+
+                <div class="p-6 rounded-2xl bg-surface-container-low border border-outline-variant/30 shadow-lg flex flex-col justify-between">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="font-label-mono-sm text-xs text-outline tracking-wider uppercase">INFERENCE LATENCY</span>
+                        <span class="px-2 py-0.5 rounded-full bg-secondary-container/15 text-secondary-container font-mono text-[11px] font-bold">SUB-SECOND</span>
+                    </div>
+                    <div class="flex items-baseline gap-2 mb-2">
+                        <span class="font-data-metric text-4xl text-secondary-container font-bold">31.4</span>
+                        <span class="font-label-mono-sm text-xs text-outline">MS / FEATURE</span>
+                    </div>
+                    <p class="font-body-sm text-xs text-on-surface-variant">Random Forest & lexical feature extraction</p>
+                    <div class="mt-4 w-full h-1 bg-surface-container-highest rounded-full overflow-hidden">
+                        <div class="bg-secondary-container w-4/5 h-full"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Monitored Surveillance Feed Table -->
+            <div class="bg-surface-container-low rounded-2xl border border-outline-variant/30 overflow-hidden shadow-xl">
+                <div class="p-6 border-b border-outline-variant/20 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    <div>
+                        <h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">Threat Surveillance Feed</h3>
+                        <p class="font-body-sm text-outline">Real-time monitored assets & threat cluster records (Demonstration Telemetry)</p>
+                    </div>
+                    <span class="font-label-mono-sm text-xs text-secondary-container font-bold">LIVE TELEMETRY ACTIVE</span>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left font-body-sm text-xs">
+                        <thead class="bg-surface-container font-label-mono-sm text-outline border-b border-outline-variant/20 uppercase tracking-wider">
+                            <tr>
+                                <th class="p-4">Target FQDN</th>
+                                <th class="p-4">Impersonated Entity</th>
+                                <th class="p-4">Detection Vector</th>
+                                <th class="p-4">Risk Classification</th>
+                                <th class="p-4">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-outline-variant/20 font-mono">
+                            <tr class="hover:bg-surface-container/50 transition-colors">
+                                <td class="p-4 text-on-surface font-bold">login-paypal-security.com</td>
+                                <td class="p-4 text-primary">PayPal</td>
+                                <td class="p-4 text-outline">brand_token_in_label</td>
+                                <td class="p-4"><span class="px-2.5 py-0.5 rounded bg-error/20 text-error font-bold">HIGH RISK</span></td>
+                                <td class="p-4"><button type="button" class="preset-pill text-secondary-container hover:underline" data-url="https://login-paypal-security.com">Inspect →</button></td>
+                            </tr>
+                            <tr class="hover:bg-surface-container/50 transition-colors">
+                                <td class="p-4 text-on-surface font-bold">accounts-google-verify.net</td>
+                                <td class="p-4 text-primary">Google</td>
+                                <td class="p-4 text-outline">exact_brand_label_different_domain</td>
+                                <td class="p-4"><span class="px-2.5 py-0.5 rounded bg-error/20 text-error font-bold">CRITICAL RISK</span></td>
+                                <td class="p-4"><button type="button" class="preset-pill text-secondary-container hover:underline" data-url="https://accounts-google-verify.net">Inspect →</button></td>
+                            </tr>
+                            <tr class="hover:bg-surface-container/50 transition-colors">
+                                <td class="p-4 text-on-surface font-bold">paypal.com</td>
+                                <td class="p-4 text-secondary-container">PayPal (Authentic)</td>
+                                <td class="p-4 text-outline">canonical_domain_reference</td>
+                                <td class="p-4"><span class="px-2.5 py-0.5 rounded bg-secondary-container/20 text-secondary-container font-bold">LOW RISK</span></td>
+                                <td class="p-4"><button type="button" class="preset-pill text-secondary-container hover:underline" data-url="https://paypal.com">Inspect →</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- ================================================================= -->
+        <!-- SECTION 4: TECHNOLOGY & INVESTIGATION CAPABILITIES                -->
+        <!-- ================================================================= -->
+        <section class="stitch-view w-full px-6 lg:px-12 py-16 max-w-[1600px] mx-auto border-t border-outline-variant/20" id="technology">
+
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <span class="font-label-mono-sm text-xs text-primary uppercase tracking-widest font-bold">ENGINEERING ARCHITECTURE</span>
+                <h2 class="font-headline-lg text-3xl md:text-5xl text-on-surface font-bold mt-2">Explainable Defensive Intelligence</h2>
+                <p class="font-body-md text-on-surface-variant mt-3">
+                    MimicTrace AI combines lexical heuristics, cryptographic validation, and multi-signal evidence fusion to establish transparent threat assessments without black-box opacity.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                <div class="p-8 rounded-2xl bg-surface-container-low border border-outline-variant/30 hover:border-primary-container transition-all">
+                    <span class="material-symbols-outlined text-primary text-[32px] mb-4">code</span>
+                    <h3 class="font-headline-sm text-headline-sm text-on-surface font-bold mb-2">Lexical URL Heuristics</h3>
+                    <p class="font-body-sm text-on-surface-variant leading-relaxed">
+                        Evaluates Shannon entropy, suspicious token clusters, character distributions, and structural anomalies within target URIs.
+                    </p>
+                </div>
+
+                <div class="p-8 rounded-2xl bg-surface-container-low border border-outline-variant/30 hover:border-secondary-container transition-all">
+                    <span class="material-symbols-outlined text-secondary-container text-[32px] mb-4">font_download</span>
+                    <h3 class="font-headline-sm text-headline-sm text-on-surface font-bold mb-2">Unicode & Brand Confusables</h3>
+                    <p class="font-body-sm text-on-surface-variant leading-relaxed">
+                        Scrutinizes homoglyphs, Cyrillic/Greek script mixing, and edit-distance permutations to unmask deceptive brand impersonations.
+                    </p>
+                </div>
+
+                <div class="p-8 rounded-2xl bg-surface-container-low border border-outline-variant/30 hover:border-primary-container transition-all">
+                    <span class="material-symbols-outlined text-primary text-[32px] mb-4">hub</span>
+                    <h3 class="font-headline-sm text-headline-sm text-on-surface font-bold mb-2">Relationship Graph Intelligence</h3>
+                    <p class="font-body-sm text-on-surface-variant leading-relaxed">
+                        Constructs verifiable entity links connecting target URLs, resolved domains, brand candidates, and network infrastructure.
+                    </p>
+                </div>
+
+                <div class="p-8 rounded-2xl bg-surface-container-low border border-outline-variant/30 hover:border-secondary-container transition-all">
+                    <span class="material-symbols-outlined text-secondary-container text-[32px] mb-4">dns</span>
+                    <h3 class="font-headline-sm text-headline-sm text-on-surface font-bold mb-2">Infrastructure Telemetry</h3>
+                    <p class="font-body-sm text-on-surface-variant leading-relaxed">
+                        Interrogates live DNS record topologies (A, AAAA, MX, NS, TXT), TLS certificate validity, and WHOIS domain registration age.
+                    </p>
+                </div>
+
+                <div class="p-8 rounded-2xl bg-surface-container-low border border-outline-variant/30 hover:border-primary-container transition-all">
+                    <span class="material-symbols-outlined text-primary text-[32px] mb-4">alt_route</span>
+                    <h3 class="font-headline-sm text-headline-sm text-on-surface font-bold mb-2">Evidence Fusion Engine</h3>
+                    <p class="font-body-sm text-on-surface-variant leading-relaxed">
+                        Aggregates multi-source telemetry into an explainable 0–100 heuristic risk score, isolating suspicious signals and reassuring indicators.
+                    </p>
+                </div>
+
+                <div class="p-8 rounded-2xl bg-surface-container-low border border-outline-variant/30 hover:border-secondary-container transition-all">
+                    <span class="material-symbols-outlined text-secondary-container text-[32px] mb-4">verified</span>
+                    <h3 class="font-headline-sm text-headline-sm text-on-surface font-bold mb-2">Calibrated Zero-Fabrication</h3>
+                    <p class="font-body-sm text-on-surface-variant leading-relaxed">
+                        Operates on rigorous statistical principles: scores reflect heuristic indicator weights, and uncalibrated models never fabricate false verdicts.
+                    </p>
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="w-full border-t border-outline-variant/30 bg-surface-container-lowest py-10 px-6 lg:px-12 mt-12">
+        <div class="max-w-[1600px] mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="flex items-center gap-3">
+                <div class="w-7 h-7 rounded-lg bg-surface-container flex items-center justify-center border border-primary-container/40">
+                    <span class="material-symbols-outlined text-primary text-[16px]">security</span>
+                </div>
+                <span class="font-headline-sm text-sm font-bold text-on-surface">MimicTrace<span class="text-secondary-container font-mono">AI</span></span>
+                <span class="text-xs text-outline ml-2">Defensive Phishing & Impersonation Intelligence Platform</span>
+            </div>
+            <div class="font-label-mono-sm text-xs text-outline">
+                Academic Research Project · Built for explainable security awareness & threat analysis
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toast Notification Container -->
+    <div id="reportToast" class="toast" role="status" aria-live="polite"></div>
+
+    <!-- Application Controller Script -->
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+</body>
+</html>

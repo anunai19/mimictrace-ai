@@ -1,0 +1,11 @@
+Flask
+pandas
+numpy
+scikit-learn
+beautifulsoup4
+requests
+tldextract
+dnspython
+networkx
+python-whois
+Pillow

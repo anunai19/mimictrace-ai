@@ -1,0 +1,7 @@
+{
+  "catalog_version": "1.0.0-uncalibrated",
+  "mode": "hash_only",
+  "calibration_status": "uncalibrated",
+  "description": "MimicTrace AI Stage 6B Reference Brand Catalog Manifest",
+  "brands": {}
+}

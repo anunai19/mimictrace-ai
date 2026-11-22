@@ -1,0 +1,238 @@
+/* MimicTrace AI — Stitch Design System Stylesheet (Stage 9) */
+/* Material Design 3 Dark Theme · Glassmorphism · Cybernetic Telemetry */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+:root {
+    /* Stitch Void Surfaces */
+    --background: #0e0d15;
+    --surface: #13131a;
+    --surface-dim: #13131a;
+    --surface-bright: #393841;
+    --surface-container-lowest: #0e0d15;
+    --surface-container-low: #1b1b23;
+    --surface-container: #1f1f27;
+    --surface-container-high: #2a2931;
+    --surface-container-highest: #34343c;
+
+    /* Content & Text */
+    --on-surface: #e4e1ec;
+    --on-surface-variant: #cdc2d8;
+    --outline: #968da1;
+    --outline-variant: #4b4455;
+
+    /* Electric Violet Primary */
+    --primary: #d4bbff;
+    --primary-container: #8e44ff;
+    --on-primary: #41008b;
+    --on-primary-container: #fff8ff;
+    --inverse-primary: #7825e9;
+
+    /* Cyan Secondary Highlights */
+    --secondary: #d3fbff;
+    --secondary-container: #00eefc;
+    --on-secondary: #00363a;
+    --on-secondary-container: #00686f;
+
+    /* Critical / Threat Spectrum */
+    --error: #ffb4ab;
+    --error-container: #93000a;
+    --on-error: #690005;
+    --on-error-container: #ffdad6;
+
+    /* Safe Spectrum */
+    --safe: #34d399;
+    --safe-container: #064e3b;
+
+    /* Moderate Spectrum */
+    --warn: #fbbf24;
+    --warn-container: #78350f;
+
+    /* Fonts */
+    --font-heading: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-mono: 'JetBrains Mono', 'Space Grotesk', monospace;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    background: var(--background);
+}
+
+body {
+    background: var(--background);
+    color: var(--on-surface);
+    font-family: var(--font-body);
+    overflow-x: hidden;
+    line-height: 1.6;
+}
+
+#network {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.55;
+}
+
+/* Three.js Hero Viewport */
+#three-hero-container {
+    width: 100%;
+    height: 100%;
+    min-height: 380px;
+    cursor: grab;
+}
+
+#three-hero-container:active {
+    cursor: grabbing;
+}
+
+/* View Switcher Active Styles */
+.nav-tab.active {
+    background: var(--surface-container-high) !important;
+    color: var(--primary) !important;
+    box-shadow: 0 0 16px rgba(142, 68, 255, 0.3);
+}
+
+/* Glassmorphism Surface Defaults */
+.glass-panel {
+    background: rgba(27, 27, 35, 0.75);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(75, 68, 85, 0.4);
+    border-radius: 1rem;
+}
+
+/* Radar Pulse & Spinner */
+.radar-active {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--secondary-container);
+    font-family: var(--font-mono);
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.radar-spinner {
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(0, 238, 252, 0.2);
+    border-top-color: var(--secondary-container);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    display: inline-block;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Toast Notification */
+.toast {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    background: var(--surface-container-high);
+    border: 1px solid var(--secondary-container);
+    color: white;
+    padding: 12px 22px;
+    border-radius: 12px;
+    font-size: 13px;
+    font-family: var(--font-mono);
+    font-weight: 600;
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.8), 0 0 24px rgba(0, 238, 252, 0.35);
+    z-index: 1000;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.25s ease;
+    pointer-events: none;
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* SVG Gauge Styling */
+.gauge-bg-circle {
+    fill: none;
+    stroke: rgba(255, 255, 255, 0.08);
+    stroke-width: 10;
+}
+
+.gauge-val-circle {
+    fill: none;
+    stroke-width: 10;
+    stroke-linecap: round;
+    transition: stroke-dashoffset 1s ease-in-out;
+}
+
+/* Status Badges */
+.status-badge {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.status-badge.status-observed {
+    background: rgba(52, 211, 153, 0.15);
+    color: var(--safe);
+    border: 1px solid rgba(52, 211, 153, 0.35);
+}
+
+.status-badge.status-unavailable {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--outline);
+    border: 1px solid var(--outline-variant);
+}
+
+.status-badge.status-error {
+    background: rgba(255, 180, 171, 0.15);
+    color: var(--error);
+    border: 1px solid rgba(255, 180, 171, 0.35);
+}
+
+.status-badge.status-not_run {
+    background: rgba(255, 255, 255, 0.03);
+    color: #64748b;
+    border: 1px solid var(--outline-variant);
+}
+
+.status-badge.status-destination_rejected,
+.status-badge.status-domain_absent,
+.status-badge.status-invalid_input {
+    background: rgba(251, 191, 36, 0.15);
+    color: var(--warn);
+    border: 1px solid rgba(251, 191, 36, 0.35);
+}
+
+.status-badge.status-no_relationships {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--outline);
+    border: 1px solid var(--outline-variant);
+}
+
+.status-badge.status-inconclusive {
+    background: rgba(251, 191, 36, 0.15);
+    color: var(--warn);
+    border: 1px solid rgba(251, 191, 36, 0.35);
+}
+
+/* Responsive adjustments */
+@media(max-width: 768px) {
+    #three-hero-container {
+        min-height: 280px;
+    }
+}
